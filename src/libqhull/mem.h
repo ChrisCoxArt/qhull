@@ -11,9 +11,9 @@
        and
      qh_errexit(qhmem_ERRqhull, NULL, NULL) otherwise
 
-   Copyright (c) 1993-2015 The Geometry Center.
-   $Id: //main/2015/qhull/src/libqhull/mem.h#2 $$Change: 2062 $
-   $DateTime: 2016/01/17 13:13:18 $$Author: bbarber $
+   Copyright (c) 1993-2018 The Geometry Center.
+   $Id: //main/2015/qhull/src/libqhull/mem.h#5 $$Change: 2552 $
+   $DateTime: 2018/12/29 15:39:43 $$Author: bbarber $
 */
 
 #ifndef qhDEFmem
@@ -159,11 +159,12 @@ struct qhmemT {               /* global memory management variables */
 
 #if defined qh_NOmem
 #define qh_memalloc_(insize, freelistp, object, type) {\
+  (void)freelistp; /* Avoid warnings */ \
   object= (type*)qh_memalloc(insize); }
 #elif defined qh_TRACEshort
 #define qh_memalloc_(insize, freelistp, object, type) {\
-    freelistp= NULL; /* Avoid warnings */ \
-    object= (type*)qh_memalloc(insize); }
+  (void)freelistp; /* Avoid warnings */ \
+  object= (type*)qh_memalloc(insize); }
 #else /* !qh_NOmem */
 
 #define qh_memalloc_(insize, freelistp, object, type) {\
@@ -188,11 +189,12 @@ struct qhmemT {               /* global memory management variables */
 */
 #if defined qh_NOmem
 #define qh_memfree_(object, insize, freelistp) {\
+  (void)freelistp; /* Avoid warnings */ \
   qh_memfree(object, insize); }
 #elif defined qh_TRACEshort
 #define qh_memfree_(object, insize, freelistp) {\
-    freelistp= NULL; /* Avoid warnings */ \
-    qh_memfree(object, insize); }
+  (void)freelistp; /* Avoid warnings */ \
+  qh_memfree(object, insize); }
 #else /* !qh_NOmem */
 
 #define qh_memfree_(object, insize, freelistp) {\

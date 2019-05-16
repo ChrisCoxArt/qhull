@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (c) 2008-2015 C.B. Barber. All rights reserved.
-** $Id: //main/2015/qhull/src/libqhullcpp/QhullSet.h#6 $$Change: 2079 $
-** $DateTime: 2016/02/07 17:43:34 $$Author: bbarber $
+** Copyright (c) 2008-2018 C.B. Barber. All rights reserved.
+** $Id: //main/2015/qhull/src/libqhullcpp/QhullSet.h#9 $$Change: 2552 $
+** $DateTime: 2018/12/29 15:39:43 $$Author: bbarber $
 **
 ****************************************************************************/
 
@@ -325,8 +325,8 @@ template <typename T>
 std::vector<T> QhullSet<T>::
 toStdVector() const
 {
-	typename QhullSet<T>::const_iterator i = begin();
-	typename QhullSet<T>::const_iterator e = end();
+    typename QhullSet<T>::const_iterator i = begin();
+    typename QhullSet<T>::const_iterator e = end();
     std::vector<T> vs;
     while(i!=e){
         vs.push_back(*i++);
@@ -340,8 +340,8 @@ template <typename T>
 QList<T> QhullSet<T>::
 toQList() const
 {
-    QhullSet<T>::const_iterator i= begin();
-    QhullSet<T>::const_iterator e= end();
+    typename QhullSet<T>::const_iterator i= begin();
+    typename QhullSet<T>::const_iterator e= end();
     QList<T> vs;
     while(i!=e){
         vs.append(*i++);

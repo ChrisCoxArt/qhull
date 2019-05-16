@@ -13,9 +13,9 @@
    unix.c and user.c are the only callers of io.c functions
    This allows the user to avoid loading io.o from qhull.a
 
-   Copyright (c) 1993-2015 The Geometry Center.
-   $Id: //main/2015/qhull/src/libqhull/io.c#5 $$Change: 2064 $
-   $DateTime: 2016/01/18 12:36:08 $$Author: bbarber $
+   Copyright (c) 1993-2018 The Geometry Center.
+   $Id: //main/2015/qhull/src/libqhull/io.c#9 $$Change: 2552 $
+   $DateTime: 2018/12/29 15:39:43 $$Author: bbarber $
 */
 
 #include "qhull_a.h"
@@ -426,7 +426,7 @@ pointT *qh_detvnorm(vertexT *vertex, vertexT *vertexA, setT *centers, realT *off
       else
         angle= angle - 1.0;
       if (angle < 0.0)
-        angle -= angle;
+        angle= -angle;
       trace4((qh ferr, 4015, "qh_detvnorm: points %d %d angle %2.2g nearzero %d\n",
                  pointid, pointidA, angle, nearzero));
       if (nearzero) {
@@ -1871,7 +1871,7 @@ void qh_printextremes_2d(FILE *fp, facetT *facetlist, setT *facets, boolT printa
       nextfacet= SETsecondt_(facet->neighbors, facetT);
     }
     if (facet->visitid == qh visit_id) {
-      qh_fprintf(qh ferr, 6218, "Qhull internal error (qh_printextremes_2d): loop in facet list.  facet %d nextfacet %d\n",
+      qh_fprintf(qh ferr, 6218, "qhull internal error (qh_printextremes_2d): loop in facet list.  facet %d nextfacet %d\n",
                  facet->id, nextfacet->id);
       qh_errexit2(qh_ERRqhull, facet, nextfacet);
     }
@@ -2621,7 +2621,7 @@ void qh_printfacetridges(FILE *fp, facetT *facet) {
       qh_fprintf(fp, 9183, "     - all ridges:");
       FOREACHridge_(facet->ridges)
         qh_fprintf(fp, 9184, " r%d", ridge->id);
-        qh_fprintf(fp, 9185, "\n");
+      qh_fprintf(fp, 9185, "\n");
     }
     FOREACHridge_(facet->ridges) {
       if (!ridge->seen)
@@ -3153,7 +3153,7 @@ void qh_printvdiagram(FILE *fp, qh_PRINT format, facetT *facetlist, setT *facets
     innerouter= qh_RIDGEouter;
     printvridge= qh_printvnorm;
   }else {
-    qh_fprintf(qh ferr, 6219, "Qhull internal error (qh_printvdiagram): unknown print format %d.\n", format);
+    qh_fprintf(qh ferr, 6219, "qhull internal error (qh_printvdiagram): unknown print format %d.\n", format);
     qh_errexit(qh_ERRinput, NULL, NULL);
   }
   vertices= qh_markvoronoi(facetlist, facets, printall, &isLower, &numcenters);
